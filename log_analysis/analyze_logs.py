@@ -37,4 +37,4 @@ class AnalyzeLogs(ParentAnalyzeLogs):
         """
         Отчёт о состоянии статусов запросов API по каждому уровню логирования
         """
-        self.report_generation(path, "GET", " \\d\\d\\d ")
+        self.report_generation(path, "", "")
