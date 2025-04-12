@@ -13,14 +13,27 @@ def test_logs_filter(parent_analyze_logs, log_list):
 
 def test_logs_sorted(parent_analyze_logs, log_list):
     sorted_logs = parent_analyze_logs.logs_sorted("/\\S+/", log_list)
-    assert sorted_logs == [
-        "/admin/dashboard/",
-        "/api/v1/reviews/"
-    ]
+    assert sorted_logs == ["/admin/dashboard/", "/api/v1/reviews/"]
 
 
 def test_report_generation(parent_analyze_logs):
-    result = parent_analyze_logs.report_generation("test_log.txt", "django.request", "/\\S+/")
-    expected_result = {'/admin/dashboard/': {'DEBUG': 0, 'INFO': 1, 'WARNING': 0, 'ERROR': 0, 'CRITICAL': 0},
-                       '/api/v1/reviews/': {'DEBUG': 0, 'INFO': 1, 'WARNING': 0, 'ERROR': 0, 'CRITICAL': 0}}
+    result = parent_analyze_logs.report_generation(
+        "test_log.txt", "django.request", "/\\S+/"
+    )
+    expected_result = {
+        "/admin/dashboard/": {
+            "DEBUG": 0,
+            "INFO": 1,
+            "WARNING": 0,
+            "ERROR": 0,
+            "CRITICAL": 0,
+        },
+        "/api/v1/reviews/": {
+            "DEBUG": 0,
+            "INFO": 1,
+            "WARNING": 0,
+            "ERROR": 0,
+            "CRITICAL": 0,
+        },
+    }
     assert result == expected_result
