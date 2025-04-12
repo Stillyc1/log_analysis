@@ -1,6 +1,5 @@
 import re
 from collections import Counter
-from typing import List
 
 
 class ParentAnalyzeLogs:
@@ -33,8 +32,11 @@ class ParentAnalyzeLogs:
                 "CRITICAL": 0,
             }
             for log in range(v):
-                # находим элемент в списке логов logs_filter, в котором есть подстрока k
-                result = next(s for s in logs_filter if k in s)
+                # находим элемент в списке логов logs_filter, в котором есть подстрока k, чтобы достать индекс.
+                try:
+                    result = next(s for s in logs_filter if k in s)
+                except StopIteration:
+                    continue
                 index = logs_filter.index(result)
 
                 log_pop = logs_filter.pop(index)
@@ -54,19 +56,19 @@ class ParentAnalyzeLogs:
         return total_logs
 
     @staticmethod
-    def read_file(path: str) -> List[str]:
+    def read_file(path: str) -> list[str]:
         """Преобразует файл с логами в список строк."""
         with open(path, "r", encoding="utf-8") as file:
             text = file.readlines()
         return text
 
     @staticmethod
-    def logs_filter(pattern: str, file_logs: List[str]) -> List[str]:
+    def logs_filter(pattern: str, file_logs: list[str]) -> list[str]:
         """Фильтрует список строк, по определённому паттерну."""
         return list(filter(lambda line: re.search(f"{pattern}", line), file_logs))
 
     @staticmethod
-    def logs_sorted(pattern: str, file_logs: List[str]) -> List[str]:
+    def logs_sorted(pattern: str, file_logs: list[str]) -> list[str]:
         """Сортируем список строк по определённому паттерну"""
         return sorted(
             [

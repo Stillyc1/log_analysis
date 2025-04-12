@@ -19,7 +19,7 @@ def main():
 
     for path in paths:
         if not os.path.exists(path):
-            raise Exception(f"Файл '{path}' не существует, укажите правильный путь.")
+            raise OSError(f"Файл '{path}' не существует, укажите правильный путь.")
         report(path)
 
     analyze_logs.report_output()

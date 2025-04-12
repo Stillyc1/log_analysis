@@ -35,6 +35,6 @@ class AnalyzeLogs(ParentAnalyzeLogs):
 
     def bubble(self, path: str) -> None:
         """
-        Отчёт о состоянии статусов запросов API по каждому уровню логирования
+        Отчёт о состоянии ошибок запросов API по каждому уровню логирования
         """
-        self.report_generation(path, "", "")
+        self.report_generation(path, "Error", ": \\S+:")

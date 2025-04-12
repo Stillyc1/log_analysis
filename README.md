@@ -7,6 +7,7 @@
 ## Интерфейс приложения:
 1. можно передать пути к логам, файлов может быть несколько
 2. можно указать аргумент --report c названием отчета который нужно сформировать
+3. можно работать с файлами больших объёмов, так как файл открывается и закрывается один раз.
 
 
 ## Использование:
@@ -36,10 +37,30 @@ python main.py logs/app1.log logs/app2.log logs/app3.log --report handlers
 
 
 ## Создание нового отчёта:
-Необходимо создать новый метод в классе ``` class AnalyzeLogs ``` [analyze_logs.py](log_analysis%2Fanalyze_logs.py)
-В самом методе необходимо наследовать метод ``` def report_generation(path_file, pattern_filter, pattern_sorted) ``` 
+Необходимо создать новый метод в классе ``` class AnalyzeLogs ``` [analyze_logs.py](log_analysis%2Fanalyze_logs.py).
+В самом методе наследовать ``` def report_generation(path_file, pattern_filter, pattern_sorted) ``` 
 родительского класса ``` class ParentAnalyzeLogs ``` [parent_analyze_logs.py](log_analysis%2Fparent_analyze_logs.py)
 ### Параметры
 1. path_file (путь до файла с логами)
 2. pattern_filter (указываем строку, по которой мы отфильтруем нужные логи)
 3. pattern_sorted (указываем строку, для сортировки и группировки отфильтрованных логов)
+
+## Тестирование
+Введите в терминале
+```commandline
+pytest .
+```
+### Отчёт тестирования
+```
+Name                                  Stmts   Miss  Cover
+---------------------------------------------------------
+log_analysis\__init__.py                  0      0   100%
+log_analysis\analyze_logs.py             18      1    94%
+log_analysis\parent_analyze_logs.py      40      3    92%
+tests\__init__.py                         0      0   100%
+tests\conftest.py                        12      0   100%
+tests\test_analyze_logs.py                7      0   100%
+tests\test_parent_analyze_logs.py        13      0   100%
+---------------------------------------------------------
+TOTAL                                    90      4    96%
+```
